@@ -36,9 +36,29 @@ public:
     {
         counter++;
     }
-    bool checkWin() // check the line
+    bool checkWin()
     {
-
+        for (int i = 0; i < 3; i++)
+        {
+            if ((arr[i][i] == arr[i][i + 1] && arr[i][i + 1] == arr[i][i + 2]) || (arr[i][i] == arr[i + 1][i] && arr[i + 1][i] == arr[i + 2][i]))
+            {
+                if (arr[i][i] == 'X')
+                {
+                }
+                else if (arr[i][i] == 'O')
+                {
+                }
+            }
+        }
+        if ((arr[0][0] == arr[1][1] && arr[1][1] == arr[2][2]) || (arr[0][2] == arr[1][1] && arr[1][1] == arr[2][0]))
+        {
+            if (arr[1][1] == 'X')
+            {
+            }
+            else if (arr[1][1] == 'O')
+            {
+            }
+        }
     }
     bool isFull()
     {
@@ -46,10 +66,11 @@ public:
         {
             cout << "All pLaces is full";
             d.checkequal();
-
+            return false;
         }
+        return true;
     }
-    bool drawBoard()
+    void drawBoard()
     {
         for (int i = 0; i < 3; i++)
         {
@@ -58,22 +79,8 @@ public:
             cout << "-------";
         }
     }
-    void isValidMove(char c)
-    {
-        int i, j;
-        cout << "Pleas enter the number of row and column place:\n";
-        cin >> i >> j;
-        i--;
-        j--;
-        if (arr[i][j] == 'X' || 'O')
-        {
-            cout << "place is full";
-            drawBoard();
-            isValidMove(c);
-        }
-        makeMove(c,i,j);
-    }
-    bool makeMove(char c, int i,int j)
+    void isValidMove(char c);
+    void makeMove(char c, int i, int j)
     {
         arr[i][j] = c;
     }
@@ -97,10 +104,30 @@ public:
         }
         appointment = (appointment == 1) ? 2 : 1;
     }
-    void checkequal()
-    {
-    }
+    bool checkequal();
 };
+
+void Board::isValidMove(char c)
+{
+    int i, j;
+    cout << "Pleas enter the number of row and column place:\n";
+    cin >> i >> j;
+    i--;
+    j--;
+    if (arr[i][j] == 'X' || 'O')
+    {
+        cout << "place is full";
+        drawBoard();
+        isValidMove(c);
+    }
+    makeMove(c, i, j);
+}
+
+bool Dooz::checkequal()
+{
+    cout << "The game is equal";
+    return true;
+}
 
 int main()
 {
@@ -111,9 +138,11 @@ int main()
     cout << "Please enter the name of player 1:\n";
     cin >> name1;
     p1() = Player(name1, 'X');
+    cout << "Your sign as a player 1 is (X)";
     cout << "Please enter the name of player 2:\n";
     cin >> name2;
     p2() = Player(name2, 'O');
+    cout << "Your sign as a player 1 is (O)";
 
     return 0;
 }
