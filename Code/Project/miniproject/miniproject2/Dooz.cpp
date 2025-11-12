@@ -15,6 +15,10 @@ public:
         player = name;
         player_sign = sign;
     }
+    string getName() const
+    {
+        return player;
+    }
 };
 
 class Board
@@ -22,15 +26,20 @@ class Board
 private:
     char arr[3][3];
     int counter;
+    Player *p1;
+    Player *p2;
 
 public:
-    Board()
+    Board(Player *player1, Player *player2)
     {
+        p1 = player1;
+        p2 = player2;
         counter = 0;
         for (int i = 0; i < 3; ++i)
             for (int j = 0; j < 3; ++j)
                 arr[i][j] = ' ';
     }
+
     void addcounter()
     {
         counter++;
@@ -42,12 +51,12 @@ public:
             {
                 if (arr[i][0] == 'X')
                 {
-                    cout << "Player 1 winer\n";
+                    cout << "Player (" << p1->getName() << ") winer\n";
                     return true;
                 }
                 else if (arr[i][0] == 'O')
                 {
-                    cout << "Player 2 winer\n";
+                    cout << "Player (" << p2->getName() << ") winer\n";
                     return true;
                 }
             }
@@ -57,12 +66,12 @@ public:
             {
                 if (arr[0][j] == 'X')
                 {
-                    cout << "Player 1 winer\n";
+                    cout << "Player (" << p1->getName() << ") winer\n";
                     return true;
                 }
                 else if (arr[0][j] == 'O')
                 {
-                    cout << "Player 2 winer\n";
+                    cout << "Player (" << p2->getName() << ") winer\n";
                     return true;
                 }
             }
@@ -71,12 +80,12 @@ public:
         {
             if (arr[0][0] == 'X')
             {
-                cout << "Player 1 winer\n";
+                cout << "Player (" << p1->getName() << ") winer\n";
                 return true;
             }
             else if (arr[0][0] == 'O')
             {
-                cout << "Player 2 winer\n";
+                cout << "Player (" << p2->getName() << ") winer\n";
                 return true;
             }
         }
@@ -85,12 +94,12 @@ public:
         {
             if (arr[0][2] == 'X')
             {
-                cout << "Player 1 winer\n";
+                cout << "Player (" << p1->getName() << ") winer\n";
                 return true;
             }
             else if (arr[0][2] == 'O')
             {
-                cout << "Player 2 winer\n";
+                cout << "Player (" << p2->getName() << ") winer\n";
                 return true;
             }
         }
@@ -100,7 +109,7 @@ public:
     {
         if (counter >= 9)
         {
-            cout << "All pLaces is full";
+            cout << "All pLaces is full\n";
             return true;
         }
         return false;
@@ -113,7 +122,8 @@ public:
             cout << "-------\n";
             cout << "|" << arr[i][0] << "|" << arr[i][1] << "|" << arr[i][2] << "|\n";
         }
-        cout << "-------\n";
+        cout << "-------\n"
+             << "\n";
     }
     void isValidMove(char c)
     {
@@ -167,15 +177,13 @@ public:
     }
     void play()
     {
-        cout << "The game is equal";
+        cout << "The game is equal\n";
         return;
     }
 };
 
 int main()
 {
-    Board b;
-    Dooz d(&b);
     string name1, name2;
     cout << "Please enter the name of player 1:\n";
     cin >> name1;
@@ -186,7 +194,8 @@ int main()
 
     Player p1(name1, 'X');
     Player p2(name2, 'O');
-
+    Board b(&p1, &p2);
+    Dooz d(&b);
     while (true)
     {
         b.drawBoard();
@@ -200,7 +209,7 @@ int main()
         if (b.isFull())
         {
             d.play();
-            cout << "The Dooz ended. the game have not winer\n";
+            cout << "The Dooz ended and the game have not winer\n";
             break;
         }
     }
