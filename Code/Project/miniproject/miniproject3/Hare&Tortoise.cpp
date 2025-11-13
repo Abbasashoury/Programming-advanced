@@ -17,7 +17,6 @@ public:
     int getpos() const { return position; }
     void move()
     {
-        srand(time(0));
         int RN = rand() % 10 + 1;
         if (RN > 5)
             position += 3;
@@ -45,7 +44,6 @@ public:
     int getpos() const { return position; }
     void move()
     {
-        srand(time(0));
         int RN = rand() % 10 + 1;
         if (RN < 3)
         {
@@ -77,17 +75,17 @@ public:
     {
         if (H.getpos() == 99 && T.getpos() != 99)
         {
-            cout << "Hare is winer";
+            cout << "Hare is winer\n";
             return true;
         }
         else if (T.getpos() == 99 && H.getpos() != 99)
         {
-            cout << "Tortoise is winer";
+            cout << "Tortoise is winer\n";
             return true;
         }
         else if (H.getpos() == 99 && T.getpos() == 99)
         {
-            cout << "The race is equal";
+            cout << "The race is equal\n";
             return true;
         }
         else
@@ -97,7 +95,11 @@ public:
     {
         for (int i = 0; i < 100; i++)
         {
-            if (i == T.getpos())
+            if (i == T.getpos() && i == H.getpos())
+            {
+                cout << "OUCH";
+            }
+            else if (i == T.getpos())
             {
                 cout << "T";
             }
@@ -105,18 +107,16 @@ public:
             {
                 cout << "H";
             }
-            else if (i == T.getpos() && i == H.getpos())
-            {
-                cout << "OUCH";
-            }
             else
             {
                 cout << "-";
             }
         }
+        cout << "\n";
     }
     void Play()
     {
+        ShowRace();
         while (true)
         {
             bool end = false;
@@ -133,6 +133,7 @@ public:
 int main()
 {
     Race R;
+    srand(time(0));
     R.Play();
 
     return 0;
