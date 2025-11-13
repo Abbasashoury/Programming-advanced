@@ -10,6 +10,11 @@ private:
     int position;
 
 public:
+    Tortoise(int base)
+    {
+        position = base;
+    }
+    int getpos() const { return position; }
     void move()
     {
         srand(time(0));
@@ -33,6 +38,11 @@ private:
     int position;
 
 public:
+    Hare(int base)
+    {
+        position = base;
+    }
+    int getpos() const { return position; }
     void move()
     {
         srand(time(0));
@@ -48,7 +58,7 @@ public:
             position += 1;
         else if (RN > 5 && RN < 8)
             position -= 2;
-        
+
         if (position < 0)
             position = 0;
         if (position > 99)
@@ -62,28 +72,68 @@ private:
     Tortoise T;
 
 public:
-    void CheckWin()
+    Race() : H(0), T(0) {}
+    bool CheckWin()
     {
+        if (H.getpos() == 99 && T.getpos() != 99)
+        {
+            cout << "Hare is winer";
+            return true;
+        }
+        else if (T.getpos() == 99 && H.getpos() != 99)
+        {
+            cout << "Tortoise is winer";
+            return true;
+        }
+        else if (H.getpos() == 99 && T.getpos() == 99)
+        {
+            cout << "The race is equal";
+            return true;
+        }
+        else
+            return false;
     }
     void ShowRace()
     {
+        for (int i = 0; i < 100; i++)
+        {
+            if (i == T.getpos())
+            {
+                cout << "T";
+            }
+            else if (i == H.getpos())
+            {
+                cout << "H";
+            }
+            else if (i == T.getpos() && i == H.getpos())
+            {
+                cout << "OUCH";
+            }
+            else
+            {
+                cout << "-";
+            }
+        }
     }
     void Play()
     {
-        // "initializ";
-        // while (true)
-        // {
-        //     T.move();
-        //     H.move();
-        //     CheckWin();
-        //     ShowRace();
-        //     "duration";
-        // }
+        while (true)
+        {
+            bool end = false;
+            T.move();
+            H.move();
+            end = CheckWin();
+            ShowRace();
+            if (end)
+                break;
+        }
     }
 };
 
 int main()
 {
+    Race R;
+    R.Play();
 
     return 0;
 }
