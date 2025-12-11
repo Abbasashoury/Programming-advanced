@@ -12,7 +12,14 @@ private:
     vector<TimeInterval> intervals;
 
 public:
-    void addInterval(const TimeInterval &) {}
+    int getsize() { return intervals.size(); }
+    TimeInterval getinterval(int j) { return intervals[j]; }
+    void addInterval(const TimeInterval &T)
+    {
+        if (overlaps(T))
+        {
+        }
+    }
     void hasConflict(const TimeInterval &) {}
     void printSchedule() {}
 };
