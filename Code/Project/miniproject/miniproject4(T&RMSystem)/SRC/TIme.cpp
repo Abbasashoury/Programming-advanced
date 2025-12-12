@@ -7,20 +7,25 @@ private:
     int minute;
 
 public:
-    Time::Time(int h = 0, int m = 0) : hour(h), minute(m) {}
+    Time();
 
-    int Time::gethour() const { return hour; }
-    int Time::toMinutes() const { return 60 * hour + minute; }
+    int gethour() const { return hour; }
+    int toMinutes() const { return 60 * hour + minute; }
+    void SetTime(int h, int m)
+    {
+        hour = h;
+        minute = m;
+    }
 
-    bool Time::operator>(const Time &other) const
+    bool operator>(const Time &other) const
     {
         return this->toMinutes() > other.toMinutes();
     }
-    bool Time::operator==(const Time &other) const
+    bool operator==(const Time &other) const
     {
-        return this->gethour() == other.gethour() && this->toMinutes() == other.toMinutes();
+        return this->toMinutes() == other.toMinutes();
     }
-    int Time::operator-(const Time &other) const
+    int operator-(const Time &other) const
     {
         return this->toMinutes() - other.toMinutes();
     }

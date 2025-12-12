@@ -8,11 +8,16 @@ private:
     int timeend;
 
 public:
-    bool overlaps(const TimeInterval &);
+    TimeInterval();
+    Time getstart();
+    Time getend();
+    void SetInterval();
+    bool overlaps(const TimeInterval &T);
+
     int duration();
     TimeInterval merge(const TimeInterval &);
     bool operator+(const TimeInterval &other) const;
     bool operator<(const TimeInterval &other) const;
-    bool operator==(const TimeInterval &other) const;
+    bool operator==(const Time &other) const;
 };
 #endif

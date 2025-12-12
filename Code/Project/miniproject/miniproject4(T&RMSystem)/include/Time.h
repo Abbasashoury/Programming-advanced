@@ -8,9 +8,10 @@ private:
     int minute;
 
 public:
-    Time(int h = 0, int m = 0);
+    Time();
     int gethour() const;
     int toMinutes() const;
+    void SetTime(int h, int m);
 
     bool operator>(const Time &other) const;
     bool operator==(const Time &other) const;

@@ -12,6 +12,8 @@ private:
     vector<TimeInterval> intervals;
 
 public:
+    int getsize();
+    TimeInterval getinterval();
     void addInterval(const TimeInterval &);
     void hasConflict(const TimeInterval &);
     void printSchedule();
