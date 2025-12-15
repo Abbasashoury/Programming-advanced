@@ -11,60 +11,32 @@ private:
     Time timeend;
 
 public:
-    Time getstart() { return timestart; }
-    Time getend() { return timeend; }
-    void SetInterval()
+    TimeInterval(Time ts, Time te) : timestart(ts), timeend(te) {}
+    Time getstart() const { return timestart; }
+    Time getend() const { return timeend; }
+    int duration()
     {
-        int hourstart, minutestart, hourend, minuteend;
-        cout << "enter the TimeStart hour:\n";
-        cin >> hourstart;
-        cout << "enter the TimeEnd hour:\n";
-        cin >> hourend;
-        cout << "enter the TimeStart minute:\n";
-        cin >> minutestart;
-        cout << "enter the TimeEnd minute:\n";
-        cin >> minuteend;
-
-        timestart.SetTime(hourstart, minutestart); // شاید عملگر انتساب لازم باشه
-        timeend.SetTime(hourend, minuteend);
+        return timeend - timestart;
     }
-    bool overlaps(const TimeInterval &T)
+    // TimeInterval merge() {}من کاربردی براش پیدا نکردم ولی چون نوشتیداضافه کردم
+    bool overlaps(const TimeInterval &T) const
     {
+        return (this->timestart < T.timeend) && (T.timestart < this->timeend);
+    }
 
-        if (this->timestart == T.timestart && this->timeend == T.timeend)
+    TimeInterval operator+(const TimeInterval &other) const
+    {
+        if (!this->overlaps(other))
         {
-            cout << "full overlap";
-            return false;
-        }
-        else if (this->timestart == T.timestart)
-        {
-            cout << "partial overlap";
-
-            return false;
-        }
-        else if (this->timeend == T.timeend)
-        {
-            cout << "partial overlap";
-
-            return false;
+            std::cout << "Warning: Cannot merge non-overlapping intervals." << std::endl;
+            return *this;
         }
 
-        cout << "no overlap";
-        return true;
+        const Time &newStart = (timestart < other.timestart) ? timestart : other.timestart;
+        const Time &newEnd = (other.timeend < timeend) ? other.timeend : timeend;
+
+        return TimeInterval(newStart, newEnd);
     }
-    int duration() {}
-    TimeInterval merge(const TimeInterval &) {} // من کاربردی براش پیدا نکردم ولی چون نوشتیداضافه کردم
-    bool operator+(const TimeInterval &other) const
-    {
-    }
-    bool operator<(const TimeInterval &other) const
-    {
-    }
-    bool operator==(const Time &other) const
-    {
-        if (this->gethour() == other.gethour() && this->toMinutes() == other.toMinutes())
-            return true;
-        else
-            return false;
-    }
+    // bool operator<(const TimeInterval &other) const;
+    // bool operator==(const Time &other) const;
 };
