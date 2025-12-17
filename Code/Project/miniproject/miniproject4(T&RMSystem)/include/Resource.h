@@ -5,8 +5,8 @@
 #include "..\include\Resource.h"
 #include "..\include\Timeinterval.h"
 #include "..\include\Time.h"
-#include "..\include\ResourceManager.h"
 
+class ResourceManager;
 class Resource
 {
 private:
@@ -18,8 +18,9 @@ public:
     Resource(int i, string n);
     int getsize();
     int getid();
-    TimeInterval getinterval();
-    
+    string Resource::getName();
+    TimeInterval getinterval(int j);
+
     void addInterval(ResourceManager &);
     void printSchedule();
 };

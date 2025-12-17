@@ -4,20 +4,17 @@
 class TimeInterval
 {
 private:
-    int timestart;
-    int timeend;
+    Time timestart;
+    Time timeend;
 
 public:
     TimeInterval(Time ts, Time te);
     Time getstart() const;
     Time getend() const;
-
-    bool overlaps(const TimeInterval &T) const;
+    
     int duration();
-    // TimeInterval merge() {}
+    bool overlaps(const TimeInterval &T) const;
+    void operator+(const TimeInterval &other);
 
-    TimeInterval operator+(const TimeInterval &other);
-    // bool operator<(const TimeInterval &other) const;
-    // bool operator==(const Time &other) const;
 };
 #endif

@@ -1,8 +1,5 @@
 #ifndef TIME_H
 #define TIME_H
-#include "Time.h"
-#include <iostream>
-using namespace std;
 
 class Time
 {
@@ -14,11 +11,13 @@ public:
     Time();
     int gethour() const;
     int toMinutes() const;
+    void Time::print() const;
 
-    bool operator<(const Time &other) const;
-    bool operator>(const Time &other) const;
-    bool operator<=(const Time &other) const;
-    int operator-(const Time &other) const;
-    bool operator==(const Time &other) const;
+    bool operator<(const Time &) const;
+    bool operator>(const Time &) const;
+    bool operator<=(const Time &) const;
+    int operator-(const Time &) const;
+    bool operator==(const Time &) const;
 };
+
 #endif

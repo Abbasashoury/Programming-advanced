@@ -2,41 +2,46 @@
 #include <iostream>
 using namespace std;
 
-class Time
+Time::Time()
 {
-private:
-    int hour;
-    int minute;
+    cout << "enter the hour of start or end:\n";
+    cin >> hour;
+    cout << "enter the minuter of start or end:\n";
+    cin >> minute;
+}
+int Time::gethour() const { return hour; }
+int Time::toMinutes() const { return 60 * hour + minute; }
+void Time::print() const
+{
+    if (hour < 10)
+    {
+        cout << '0'
+    };
+    cout << hour << ":";
+    if (minute < 10)
+    {
+        cout << '0'
+    };
+    cout << minute;
+}
 
-public:
-    Time()
-    {
-        cout << "enter the hour of start or end:\n";
-        cin >> hour;
-        cout << "enter the minuter of start or end:\n";
-        cin >> minute;
-    }
-    int gethour() const { return hour; }
-    int toMinutes() const { return 60 * hour + minute; }
-
-    bool operator<(const Time &other) const
-    {
-        return this->toMinutes() < other.toMinutes();
-    }
-    bool operator>(const Time &other) const
-    {
-        return this->toMinutes() > other.toMinutes();
-    }
-    bool operator<=(const Time &other) const
-    {
-        return this->toMinutes() <= other.toMinutes();
-    }
-    int operator-(const Time &other) const
-    {
-        return this->toMinutes() - other.toMinutes();
-    }
-    bool operator==(const Time &other) const
-    {
-        return this->toMinutes() == other.toMinutes();
-    }
-};
+bool Time::operator<(const Time &other) const
+{
+    return this->toMinutes() < other.toMinutes();
+}
+bool Time::operator>(const Time &other) const
+{
+    return this->toMinutes() > other.toMinutes();
+}
+bool Time::operator<=(const Time &other) const
+{
+    return this->toMinutes() <= other.toMinutes();
+}
+int Time::operator-(const Time &other) const
+{
+    return this->toMinutes() - other.toMinutes();
+}
+bool Time::operator==(const Time &other) const
+{
+    return this->toMinutes() == other.toMinutes();
+}

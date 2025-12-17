@@ -12,8 +12,8 @@ private:
 
 public:
     void addResource();
-    void hasConflict(const TimeInterval &,int);
-    void searchResourceByName(const string &);
+    bool hasConflict(const TimeInterval &other, int id);
+    void searchResourceByName(const string &name);
     void printAllSchedules();
 };
 int ResourceManager::totalResources;

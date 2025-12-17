@@ -5,46 +5,71 @@
 #include "..\include\ResourceManager.h"
 using namespace std;
 
-class ResourceManager
+void ResourceManager::addResource()
 {
-private:
-    vector<Resource> resources;
-    static int totalResources;
-
-public:
-    void addResource()
+    int id;
+    string name;
+    cout << "Enter resource id: ";
+    cin >> id;
+    cout << "Enter resource name: ";
+    cin >> name;
+    Resource newResource(id, name);
+    resources.push_back(newResource);
+    totalResources++;
+}
+bool ResourceManager::hasConflict(const TimeInterval &other, int id)
+{
+    for (int i = 0; i < resources.size(); ++i)
     {
-        int id;
-        string name;
-        cout << "Enter resource id: ";
-        cin >> id;
-        cout << "Enter resource name: ";
-        cin >> name;
-        Resource newResource(id, name);
-        resources.push_back(newResource);
-        totalResources++;
-    }
-    bool hasConflict(const TimeInterval &other, int id) // اینو اینجا من نوشتم که بره تمام تداخل بین بازع=ه های منابع مختلف رو پیدا کنه و نزاره یه کلاس درس توی یه ساعت توسط دونفر رزرو بشه
-    {
-        for (int i = 0; i < resources.size(); ++i)
+        if (resources[i].getid() == id)
+            continue;
+        Resource &res = resources[i];
+        for (int j = 0; j < res.getsize(); ++j)
         {
-            if (resources[i].getid() == id)
-                continue;
-            Resource &res = resources[i];
-            for (int j = 0; j < res.getsize(); ++j)
+            TimeInterval temp = res.getinterval(j);
+            if (temp.overlaps(other))
             {
-                TimeInterval temp = res.getinterval(j);
-                if (temp.overlaps(other))
-                {
-                    cout << "Conflict detected with resource ID: " << i << endl;
-                    return true;
-                }
+                cout << "Conflict detected with resource ID: " << i << endl;
+                return true;
             }
         }
-        cout << "No conflicts detected" << endl;
-        return false;
     }
-    void searchResourceByName(const string &) {}
-    void printAllSchedules() {}
-};
+    cout << "No conflicts detected" << endl;
+    return false;
+}
+void ResourceManager::searchResourceByName(const string &name)
+{
+    for (int i = 0; i < resources.size(); ++i)
+    {
+        Resource &res = resources[i];
+
+        if (res.getName() == name)
+        {
+            cout << "Resource found:\n";
+            cout << "ID: " << res.getid() << "\n";
+            cout << "Name: " << name << "\n";
+            res.printSchedule();
+            return;
+        }
+    }
+    cout << "Resource not found.\n";
+}
+void ResourceManager::printAllSchedules()
+{
+    cout << "===========================================\n";
+    cout << "Total Resources: " << totalResources << "\n";
+
+    for (int i = 0; i < resources.size(); ++i)
+    {
+        cout << "-------------------------------------------\n";
+        cout << "Resource #" << i + 1 << "\n";
+        cout << "ID   : " << resources[i].getid() << "\n";
+        cout << "Name : " << resources[i].getName() << "\n";
+
+        resources[i].printSchedule();
+        cout << "\n";
+    }
+
+    cout << "===========================================\n";
+}
 int ResourceManager::totalResources = 0;
