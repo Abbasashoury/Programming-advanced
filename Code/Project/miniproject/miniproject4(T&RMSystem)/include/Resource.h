@@ -2,7 +2,10 @@
 #define RESOURCE_H
 #include <string>
 #include <vector>
-#include "Timeinterval.h"
+#include "..\include\Resource.h"
+#include "..\include\Timeinterval.h"
+#include "..\include\Time.h"
+#include "..\include\ResourceManager.h"
 
 class Resource
 {
@@ -12,10 +15,12 @@ private:
     vector<TimeInterval> intervals;
 
 public:
+    Resource(int i, string n);
     int getsize();
+    int getid();
     TimeInterval getinterval();
-    void addInterval(const TimeInterval &);
-    void hasConflict(const TimeInterval &);
+    
+    void addInterval(ResourceManager &);
     void printSchedule();
 };
 

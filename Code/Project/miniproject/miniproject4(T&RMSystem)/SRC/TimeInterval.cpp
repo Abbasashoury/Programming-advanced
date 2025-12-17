@@ -18,25 +18,22 @@ public:
     {
         return timeend - timestart;
     }
-    // TimeInterval merge() {}من کاربردی براش پیدا نکردم ولی چون نوشتیداضافه کردم
+    // TimeInterval merge() {}  من کاربردی براش پیدا نکردم چون عملگر + رو داریم ولی چون نوشتیداضافه کردم
     bool overlaps(const TimeInterval &T) const
     {
         return (this->timestart < T.timeend) && (T.timestart < this->timeend);
     }
 
-    TimeInterval operator+(const TimeInterval &other) const
+    void operator+(const TimeInterval &other)
     {
-        if (!this->overlaps(other))
-        {
-            std::cout << "Warning: Cannot merge non-overlapping intervals." << std::endl;
-            return *this;
-        }
 
-        const Time &newStart = (timestart < other.timestart) ? timestart : other.timestart;
-        const Time &newEnd = (other.timeend < timeend) ? other.timeend : timeend;
+        const Time &newstart = (timestart < other.timestart) ? timestart : other.timestart;
+        const Time &newend = (timeend > other.timeend) ? timeend : other.timeend;
 
-        return TimeInterval(newStart, newEnd);
+        timestart = newstart;
+        timeend = newend;
     }
+    // من کاربردی براش پیدا نکردم ولی چون نوشتیداضافه کردم
     // bool operator<(const TimeInterval &other) const;
     // bool operator==(const Time &other) const;
 };

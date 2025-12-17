@@ -11,9 +11,10 @@ private:
     static int totalResources;
 
 public:
-    void addResource(const Resource &);
+    void addResource();
+    void hasConflict(const TimeInterval &,int);
     void searchResourceByName(const string &);
     void printAllSchedules();
 };
-
+int ResourceManager::totalResources;
 #endif

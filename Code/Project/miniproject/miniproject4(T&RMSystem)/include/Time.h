@@ -16,7 +16,9 @@ public:
     int toMinutes() const;
 
     bool operator<(const Time &other) const;
+    bool operator>(const Time &other) const;
     bool operator<=(const Time &other) const;
     int operator-(const Time &other) const;
+    bool operator==(const Time &other) const;
 };
 #endif

@@ -15,7 +15,6 @@ public:
         cin >> hour;
         cout << "enter the minuter of start or end:\n";
         cin >> minute;
-
     }
     int gethour() const { return hour; }
     int toMinutes() const { return 60 * hour + minute; }
@@ -24,6 +23,10 @@ public:
     {
         return this->toMinutes() < other.toMinutes();
     }
+    bool operator>(const Time &other) const
+    {
+        return this->toMinutes() > other.toMinutes();
+    }
     bool operator<=(const Time &other) const
     {
         return this->toMinutes() <= other.toMinutes();
@@ -31,5 +34,9 @@ public:
     int operator-(const Time &other) const
     {
         return this->toMinutes() - other.toMinutes();
+    }
+    bool operator==(const Time &other) const
+    {
+        return this->toMinutes() == other.toMinutes();
     }
 };

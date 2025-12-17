@@ -14,9 +14,9 @@ public:
 
     bool overlaps(const TimeInterval &T) const;
     int duration();
-    // TimeInterval merge() {}من کاربردی براش پیدا نکردم ولی چون نوشتیداضافه کردم
+    // TimeInterval merge() {}
 
-    TimeInterval operator+(const TimeInterval &other) const;
+    TimeInterval operator+(const TimeInterval &other);
     // bool operator<(const TimeInterval &other) const;
     // bool operator==(const Time &other) const;
 };
