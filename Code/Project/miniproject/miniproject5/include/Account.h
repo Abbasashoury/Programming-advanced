@@ -29,6 +29,8 @@ public:
     bool withdraw(double amount);
     void printBalance() const;
 
+    friend class BankSystem;
+
     int getId() const { return id; }
     double getBalance() const { return balance; }
 };

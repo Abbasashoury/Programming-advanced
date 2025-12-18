@@ -1,16 +1,18 @@
 #ifndef BANKSYSTEM_H
 #define BANKSYSTEM_H
-using std::vector;
 
 #include "..\include\Customer.h"
 #include "..\include\Transaction.h"
 #include <vector>
+
+using std::vector;
 
 class BankSystem
 {
 private:
     vector<Customer> customers;
     vector<Transaction> transactions;
+    static int totalAccounts;
 
 public:
     void addCustomer(const Customer &c);
