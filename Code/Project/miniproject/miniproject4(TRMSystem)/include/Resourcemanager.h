@@ -16,6 +16,8 @@ private:
 public:
     int getResourceCount() const;
     Resource &getResource(int index);
+    bool checkid(int id) const;
+    bool checkname(const string &name) const;
     void addResource(int id, string name);
     bool hasConflict(const TimeInterval &other, int id);
     void searchResourceByName(const string &name);

@@ -25,6 +25,7 @@ int main()
         switch (choice)
         {
         case 1:
+        {
             int id;
             string name;
             cout << "Enter resource id: ";
@@ -33,7 +34,7 @@ int main()
             cin >> name;
             manager.addResource(id, name);
             break;
-
+        }
         case 2:
         {
             int resourceId;
@@ -46,16 +47,39 @@ int main()
                 if (manager.getResource(i).getid() == resourceId)
                 {
                     int hour, minute;
+
                     cout << "Enter start time (hour): ";
                     cin >> hour;
+                    if (hour < 0 || hour > 23)
+                    {
+                        cout << "Invalid hour. Please enter hour between 0 and 23.\n";
+                        break;
+                    }
                     cout << "Enter start time (minute): ";
                     cin >> minute;
+                    if (minute < 0 || minute > 59)
+                    {
+                        cout << "Invalid minute. Please enter minute between 0 and 59.\n";
+                        break;
+                    }
                     Time start(hour, minute);
+
                     cout << "Enter end time (hour): ";
                     cin >> hour;
+                    if (hour < 0 || hour > 23)
+                    {
+                        cout << "Invalid hour. Please enter hour between 0 and 23.\n";
+                        break;
+                    }
                     cout << "Enter end time (minute): ";
                     cin >> minute;
+                    if (minute < 0 || minute > 59)
+                    {
+                        cout << "Invalid minute. Please enter minute between 0 and 59.\n";
+                        break;
+                    }
                     Time end(hour, minute);
+
                     manager.getResource(i).addInterval(manager, start, end);
                     found = true;
                     break;
@@ -78,11 +102,15 @@ int main()
         }
 
         case 4:
+        {
             manager.printAllSchedules();
             break;
+        }
 
         default:
+        {
             cout << "Invalid option. Try again.\n";
+        }
         }
     }
 

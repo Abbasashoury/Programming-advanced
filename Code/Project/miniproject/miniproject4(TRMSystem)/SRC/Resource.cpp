@@ -10,10 +10,10 @@ using namespace std;
 
 Resource::Resource(int i, string n) : id(i), name(n) {}
 
-int Resource::getsize() { return intervals.size(); }
-int Resource::getid() { return id; }
-string Resource::getName() { return name; }
-TimeInterval Resource::getinterval(int j) { return intervals[j]; }
+int Resource::getsize() const { return intervals.size(); }
+int Resource::getid() const { return id; }
+string Resource::getName() const { return name; }
+TimeInterval Resource::getinterval(int j) const { return intervals[j]; }
 
 void Resource::addInterval(ResourceManager &mainManager, Time start, Time end)
 {
@@ -24,20 +24,27 @@ void Resource::addInterval(ResourceManager &mainManager, Time start, Time end)
         return;
     }
 
+    intervals.push_back(other);
+    sort(intervals.begin(), intervals.end());
+
     for (int i = 0; i < intervals.size(); ++i)
     {
-        TimeInterval &temp = intervals[i];
-
-        if (temp.overlaps(other))
+        for (int j = i + 1; j < intervals.size();)
         {
-            temp + other;
-            cout << "Interval merged with existing interval." << endl;
-            return;
+            if (intervals[i].overlaps(intervals[j]) || intervals[i].getend() == intervals[j].getstart())
+            {
+                intervals[i] + intervals[j];
+                intervals.erase(intervals.begin() + j);
+                cout << "Merged overlapping intervals." << endl;
+            }
+            else
+            {
+                j++;
+            }
         }
     }
 
-    intervals.push_back(other);
-    cout << "Interval added successfully." << endl;
+    cout << "Interval added and merged successfully.\n";
 }
 
 void Resource::sortIntervals()

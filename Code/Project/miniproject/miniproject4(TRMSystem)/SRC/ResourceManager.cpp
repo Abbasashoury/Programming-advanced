@@ -15,8 +15,39 @@ Resource &ResourceManager::getResource(int index)
 {
     return resources[index];
 }
+bool ResourceManager::checkid(int id) const
+{
+    for (int i = 0; i < resources.size(); ++i)
+    {
+        if (resources[i].getid() == id)
+            return true;
+    }
+    return false;
+}
+
+bool ResourceManager::checkname(const string &name) const
+{
+    for (int i = 0; i < resources.size(); ++i)
+    {
+        if (resources[i].getName() == name)
+            return true;
+    }
+    return false;
+}
+
 void ResourceManager::addResource(int id, string name)
 {
+    if (checkid(id))
+    {
+        cout << "Error: Resource with this ID already exists.\n";
+        return;
+    }
+
+    if (checkname(name))
+    {
+        cout << "Error: Resource with this name already exists.\n";
+        return;
+    }
     Resource newResource(id, name);
     resources.push_back(newResource);
     totalResources++;
@@ -33,7 +64,7 @@ bool ResourceManager::hasConflict(const TimeInterval &other, int id)
             TimeInterval temp = res.getinterval(j);
             if (temp.overlaps(other))
             {
-                cout << "Conflict detected with resource ID: " << i << endl;
+                cout << "Conflict detected with resource ID: " << resources[i].getid() << endl;
                 return true;
             }
         }
