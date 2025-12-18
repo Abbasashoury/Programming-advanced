@@ -19,6 +19,19 @@ bool BankSystem::transfer(Account &from, Account &to, double amount)
     }
     return false;
 }
+void BankSystem::processDeposit(Account &acc, double amount)
+{
+    acc.deposit(amount);
+    transactions.push_back(Transaction(transactions.size() + 1, TransactionType::DEPOSIT, amount, "2025/12/18"));
+}
+
+void BankSystem::processWithdraw(Account &acc, double amount)
+{
+    if (acc.withdraw(amount))
+    {
+        transactions.push_back(Transaction(transactions.size() + 1, TransactionType::WITHDRAWAL, amount, "2025/12/18"));
+    }
+}
 
 int BankSystem::getTotalAccounts() { return totalAccounts; }
 void BankSystem::incrementAccounts() { totalAccounts++; }

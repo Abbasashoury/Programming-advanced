@@ -17,6 +17,9 @@ private:
 public:
     void addCustomer(const Customer &c);
     bool transfer(Account &from, Account &to, double amount);
+    void processDeposit(Account &acc, double amount);
+    void processWithdraw(Account &acc, double amount);
+
     void showGlobalReport() const;
 
     static int getTotalAccounts();
