@@ -13,10 +13,11 @@ enum class LightState
 class TrafficLight : public TrafficElement
 {
 private:
-    LightState state;
+    LightState STATE;
 
 public:
     TrafficLight(LightState state);
+    ~TrafficLight() override;
 
     bool allows(const Vehicle &vehicle) const override;
     void printRule() const override;

@@ -6,10 +6,11 @@
 class SpeedLimitZone : public TrafficElement
 {
 private:
-    int maxSpeed;
+    int MAXSPEED;
 
 public:
     SpeedLimitZone(int maxSpeed);
+    ~SpeedLimitZone() override;
 
     bool allows(const Vehicle &vehicle) const override;
     void printRule() const override;

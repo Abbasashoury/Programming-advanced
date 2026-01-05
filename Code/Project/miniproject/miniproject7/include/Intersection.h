@@ -15,13 +15,16 @@ private:
 
 public:
     Intersection();
+    ~Intersection();
 
     void addVehicle(Vehicle *vehicle);
-    void addRule(TrafficElement *rule);
+    void deleteVehicle(int id);
 
     void evaluate();
     void printStatus() const;
 
     static int intersectionCount;
+    static Intersection *activeIntersection;
+
 };
 #endif

@@ -1,16 +1,56 @@
-#include "Vehicle.h"
-using namespace std;
+#include "..\include\Vehicle.h"
 
 int Vehicle::vehicleCount = 0;
 
-Vehicle::Vehicle(int id, const string &plate, int speed) {}
-Vehicle::~Vehicle() {}
+Vehicle::Vehicle(int id, const string &plate, int speed)
+    : ID(id), PLATE(plate), SPEED(speed)
+{
+    vehicleCount++;
+}
 
-void Vehicle::move() {}
-void Vehicle::printStatus() const {}
+Vehicle::~Vehicle()
+{
+    vehicleCount--;
+}
 
-int Vehicle::getSpeed() const { return 0; }
-void Vehicle::setSpeed(int speed) {}
+void Vehicle::move()
+{
+    cout << "Vehicle " << ID << " moved and left intersection" << endl;
 
-bool Vehicle::operator<(const Vehicle &other) const { return false; }
-Vehicle &Vehicle::operator+(int speedtoadd) { return *this; }
+    if (Intersection::activeIntersection)
+        Intersection::activeIntersection->deleteVehicle(ID);
+}
+
+void Vehicle::printStatus() const
+{
+    cout << "ID: " << ID
+         << " | Plate: " << PLATE
+         << " | Speed: " << SPEED << endl;
+}
+
+int Vehicle::getSpeed() const
+{
+    return SPEED;
+}
+
+void Vehicle::setSpeed(int speed)
+{
+    SPEED = speed;
+}
+int Vehicle::getId() const
+{
+    return ID;
+}
+
+bool Vehicle::operator<(const Vehicle &other) const
+{
+    return SPEED < other.SPEED;
+}
+
+Vehicle &Vehicle::operator+(int speedtoadd)
+{
+    SPEED += speedtoadd;
+    if (SPEED < 0)
+        SPEED = 0;
+    return *this;
+}

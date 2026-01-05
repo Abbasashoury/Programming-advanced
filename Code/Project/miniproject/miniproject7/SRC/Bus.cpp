@@ -1,7 +1,20 @@
-#include "Bus.h"
+#include "..\include\Bus.h"
+#include "..\include\TrafficElement.h"
 
-Bus::Bus(int id, const string& plate, int speed)
+Bus::Bus(int id, const string &plate, int speed)
     : Vehicle(id, plate, speed) {}
 
-bool Bus::canMove(const TrafficElement& element) const { return false; }
-void Bus::move() {}
+Bus::~Bus() {}
+
+bool Bus::canMove(const TrafficElement &element) const
+{
+    return element.allows(*this);
+}
+
+void Bus::move()
+{
+    SPEED += 2;
+    cout << "Bus moves. New speed: " << SPEED << endl;
+
+    Vehicle::move();
+}
